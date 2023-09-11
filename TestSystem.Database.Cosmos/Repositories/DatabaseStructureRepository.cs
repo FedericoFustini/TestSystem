@@ -108,28 +108,29 @@ namespace TestSystem.Database.Cosmos.Repositories
 			return count.Value;
 		}
 
-		public async Task PopulateDatabase(IEnumerable<Test> tests)
+		public async Task PopulateDatabase(IEnumerable<TestToGenerate> tests)
 		{
 			var container = _cosmosClient.GetContainer(DBConstants.TEST_DATABASE, DBConstants.TEST_CONTAINER);
 
 			var tasks = new List<Task>();
-
+			var testId = 1;
 			foreach (var test in tests)
 			{
-				tasks.Add(CreateTestItem(container, test));
+				var questionId = 1;
+				tasks.Add(CreateTestItem(container, test, testId));
 				foreach (var question in test.PossibleQuestions)
 				{
-					tasks.Add(CreateQuestionItem(container, question, test.Id));
-					_logger.LogInformation("Wrote test {testId} and question {questionId}", test.Id, question.Id);
+					tasks.Add(CreateQuestionItem(container, question, testId++, questionId++));
+					_logger.LogInformation("Wrote test {testId} and question {questionId}", testId, questionId);
 				}
 			}
 
 			await Task.WhenAll(tasks);
 		}
 
-		private async Task CreateQuestionItem(Container container, QuestionWithSolution question, int testId)
+		private async Task CreateQuestionItem(Container container, QuestionToGenerate question, int testId, int questionId)
 		{
-			var questionItem = new QuestionDB(question, testId);
+			var questionItem = new QuestionDB(question, testId, questionId);
 			// The full partition key path is not necessary but i specified for underlying the use of hierarchical partition key
 			var partitionKey = new PartitionKeyBuilder()
 						.Add(questionItem.TestId)
@@ -139,9 +140,9 @@ namespace TestSystem.Database.Cosmos.Repositories
 			_ = await container.CreateItemAsync(questionItem, partitionKey);
 		}
 
-		private async Task CreateTestItem(Container container, Test test)
+		private async Task CreateTestItem(Container container, TestToGenerate test, int testId)
 		{
-			var testItem = new TestDB(test);
+			var testItem = new TestDB(test, testId);
 			// The full partition key path is not necessary but i specified for underlying the use of hierarchical partition key
 			var partitionKey = new PartitionKeyBuilder()
 						.Add(testItem.TestId)

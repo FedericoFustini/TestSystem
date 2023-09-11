@@ -20,6 +20,10 @@ namespace TestSystem.Controllers
 			_logger = logger;
 		}
 
+		/// <summary>
+		/// Get all test name for fill a dropdown for choose test
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet("names")]
 		//never use a c# type as response. wrap always in a custom object because if you want add property in future, you can do it without change response type class
 		//for this reasone i wrap IEnumerable<TestNameResponse> in a TestsNamesResponse obj
@@ -38,7 +42,11 @@ namespace TestSystem.Controllers
 			}
 		}
 
-
+		/// <summary>
+		/// Create user and returns random question for selected test
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		//this response should be paginated if a test can have an high number of questions
 		[HttpPut("create")]
 		[ProducesResponseType(typeof(CreatedTestResponse), StatusCodes.Status200OK)]
@@ -62,7 +70,11 @@ namespace TestSystem.Controllers
 			}
 		}
 
-
+		/// <summary>
+		/// Update user test inserting new answer
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		[HttpPatch()]
 		[ProducesResponseType(typeof(CreatedTestResponse), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]

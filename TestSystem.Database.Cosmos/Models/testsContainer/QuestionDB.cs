@@ -8,14 +8,14 @@ namespace TestSystem.Database.Cosmos.Models.testsContainer
 		{
 		}
 
-		public QuestionDB(QuestionWithSolution question, int testId)
+		public QuestionDB(QuestionToGenerate question, int testId, int questionId)
 		{
 			id = Guid.NewGuid();
 			TestId = testId;
-			QuestionId = question.Id;
+			QuestionId = questionId;
 			Type = "question";
 			Text = question.Text;
-			Answers = question.Answers.Select(x => new AnswerDB(x));
+			Answers = question.Answers.Select((x, i) => new AnswerDB(x, i));
 		}
 
 		public Guid id { get; set; }

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TestSystem</name>
+    </assembly>
+    <members>
+        <member name="M:TestSystem.Controllers.DatabaseInitializationController.CreateDatabase">
+            <summary>
+            Create an empty database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TestSystem.Controllers.DatabaseInitializationController.DeleteDatabase">
+            <summary>
+            Delete the database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TestSystem.Controllers.DatabaseInitializationController.PopulateDatabase">
+            <summary>
+            Insert random data into existing database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TestSystem.Controllers.TestsController.ReadTestsNames">
+            <summary>
+            Get all test name for fill a dropdown for choose test
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TestSystem.Controllers.TestsController.CreateTest(TestSystem.Models.CreateTestRequest)">
+            <summary>
+            Create user and returns random question for selected test
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TestSystem.Controllers.TestsController.UpdateTest(TestSystem.Models.UpdateTestRequest)">
+            <summary>
+            Update user test inserting new answer
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TestSystem.Controllers.UsersController.ReadTestResult(System.Nullable{System.Guid},System.Nullable{System.Int32})">
+            <summary>
+            Get the test total score for an user, when he finished the test
+            </summary>
+            <param name="userId"></param>
+            <param name="testId"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

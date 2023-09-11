@@ -22,10 +22,10 @@ namespace TestSystem.Database.Cosmos.Repositories
 			_cosmosClient = cosmosClient;
 		}
 
-		public async Task CreateUser(Guid userId, string username, int testId)
+		public async Task<Guid> CreateUser(string username, int testId)
 		{
 			var container = _cosmosClient.GetContainer(DBConstants.TEST_DATABASE, DBConstants.USER_CONTAINER);
-
+			var userId = Guid.NewGuid();
 			var userItem = new UserTestResultDB(userId, username, testId);
 			// The full partition key path is not necessary but i specified for underlying the use of hierarchical partition key
 			var partitionKey = new PartitionKeyBuilder()
@@ -34,6 +34,7 @@ namespace TestSystem.Database.Cosmos.Repositories
 						.Build();
 
 			_ = await container.CreateItemAsync(userItem, partitionKey);
+			return userId;
 		}
 
 		public async Task<bool> Exist(Guid userId, int testId)

@@ -126,24 +126,7 @@ AND t.Type = 'test'";
 
 		}
 
-		public async Task<bool> Exist(int testId)
-		{
-			var container = _cosmosClient.GetContainer(DBConstants.TEST_DATABASE, DBConstants.TEST_CONTAINER);
-			var query = @$"SELECT VALUE COUNT(t.TestId)
-FROM tests t
-WHERE t.TestId = {testId}
-AND t.QuestionId = 0
-AND t.Type = 'test'";
-			using var results = container.GetItemQueryIterator<int>(query);
-
-			var count = 0;
-			while (results.HasMoreResults)
-				count = (await results.ReadNextAsync()).Single();
-
-			return count != 0;
-		}
-
-		public async Task InsertAnswer(UpdateTest updateTest)
+		public async Task InsertUserAnswer(UpdateTest updateTest)
 		{
 			var answerWithSolution = await InsertAnswerIntoTests(updateTest);
 			await InsertAnswerIntoUsers(updateTest, answerWithSolution);

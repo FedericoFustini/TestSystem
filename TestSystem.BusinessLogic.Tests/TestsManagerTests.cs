@@ -35,7 +35,7 @@ namespace TestSystem.BusinessLogic.Tests
 			{
 				TestId = 100,
 			};
-			_testsRepository.Setup(x => x.Exist(update.TestId)).ReturnsAsync(false);
+			_testsRepository.Setup(x => x.ExistTest(update.TestId)).ReturnsAsync(false);
 			var manager = new TestsManager(_testsRepository.Object, _usersRepository.Object, _logger);
 
 
@@ -49,7 +49,7 @@ namespace TestSystem.BusinessLogic.Tests
 			{
 				TestId = 100,
 			};
-			_testsRepository.Setup(x => x.Exist(update.TestId)).ReturnsAsync(true);
+			_testsRepository.Setup(x => x.ExistTest(update.TestId)).ReturnsAsync(true);
 			_usersRepository.Setup(x => x.Exist(update.UserId, update.TestId)).ReturnsAsync(false);
 
 			var manager = new TestsManager(_testsRepository.Object, _usersRepository.Object, _logger);
@@ -65,7 +65,7 @@ namespace TestSystem.BusinessLogic.Tests
 			{
 				TestId = 100,
 			};
-			_testsRepository.Setup(x => x.Exist(update.TestId)).ReturnsAsync(true);
+			_testsRepository.Setup(x => x.ExistTest(update.TestId)).ReturnsAsync(true);
 			_usersRepository.Setup(x => x.Exist(update.UserId, update.TestId)).ReturnsAsync(true);
 			_usersRepository.Setup(x => x.ExistAnswer(update.UserId, update.TestId, update.QuestionId)).ReturnsAsync(true);
 
@@ -82,7 +82,7 @@ namespace TestSystem.BusinessLogic.Tests
 			{
 				TestId = 100,
 			};
-			_testsRepository.Setup(x => x.Exist(update.TestId)).ReturnsAsync(true);
+			_testsRepository.Setup(x => x.ExistTest(update.TestId)).ReturnsAsync(true);
 			_usersRepository.Setup(x => x.Exist(update.UserId, update.TestId)).ReturnsAsync(true);
 			_usersRepository.Setup(x => x.ExistAnswer(update.UserId, update.TestId, update.QuestionId)).ReturnsAsync(false);
 			_usersRepository.Setup(x => x.IsTestCompleted(update.UserId, update.TestId)).ReturnsAsync(true);
@@ -104,11 +104,11 @@ namespace TestSystem.BusinessLogic.Tests
 				AnswerId = 2,
 				QuestionId = 3
 			};
-			_testsRepository.Setup(x => x.Exist(update.TestId)).ReturnsAsync(true);
+			_testsRepository.Setup(x => x.ExistTest(update.TestId)).ReturnsAsync(true);
 			_usersRepository.Setup(x => x.Exist(update.UserId, update.TestId)).ReturnsAsync(true);
 			_usersRepository.Setup(x => x.ExistAnswer(update.UserId, update.TestId, update.QuestionId)).ReturnsAsync(false);
 			_usersRepository.Setup(x => x.IsTestCompleted(update.UserId, update.TestId)).ReturnsAsync(false);
-			_testsRepository.Setup(x => x.InsertAnswer(update)).Returns(Task.CompletedTask);
+			_testsRepository.Setup(x => x.InsertUserAnswer(update)).Returns(Task.CompletedTask);
 
 			var manager = new TestsManager(_testsRepository.Object, _usersRepository.Object, _logger);
 
@@ -150,7 +150,7 @@ namespace TestSystem.BusinessLogic.Tests
 				},
 			};
 			_testsRepository.Setup(x => x.ExistTest(testId)).ReturnsAsync(true);
-			_usersRepository.Setup(x => x.CreateUser(It.IsAny<Guid>(), username, testId)).Returns(Task.CompletedTask);
+			_usersRepository.Setup(x => x.CreateUser(username, testId)).ReturnsAsync(Guid.NewGuid());
 			_testsRepository.Setup(x => x.ReadQuestionsIds(testId)).ReturnsAsync(ids);
 			_testsRepository.Setup(x => x.ReadTestQuestions(testId, It.IsAny<IEnumerable<int>>())).ReturnsAsync(solutions);
 

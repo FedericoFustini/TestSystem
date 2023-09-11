@@ -6,22 +6,24 @@ using System.Threading.Tasks;
 
 namespace TestSystem.BusinessLogic.Models
 {
-	public class Test
+	public class TestToGenerate
 	{
-		public int Id { get; set; }
 		public string Name { get; set; }
 		public int QuestionCount { get; set; }
-		public IEnumerable<QuestionWithSolution> PossibleQuestions { get; set; }
+		public IEnumerable<QuestionToGenerate> PossibleQuestions { get; set; }
 	}
 
-
-	public class QuestionWithSolution : QuestionBase
+	public class QuestionToGenerate
 	{
-		public IEnumerable<Answer> Answers { get; set; }
+		public string Text { get; set; }
+
+		public IEnumerable<AnswerToGenerate> Answers { get; set; }
+
 	}
 
-	public class Answer : AnswerBase
+	public class AnswerToGenerate
 	{
+		public string Text { get; set; }
 		public bool IsCorrect { get; set; }
 	}
 }

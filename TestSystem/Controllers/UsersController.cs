@@ -21,6 +21,12 @@ namespace TestSystem.Controllers
 			_logger = logger;
 		}
 
+		/// <summary>
+		/// Get the test total score for an user, when he finished the test
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <param name="testId"></param>
+		/// <returns></returns>
 		[HttpGet("{userId}/test/{testId}/result")]
 		[ProducesResponseType(typeof(CorrectAnswerResponse), StatusCodes.Status200OK)]
 		[ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]

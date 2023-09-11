@@ -18,7 +18,10 @@ namespace TestSystem.Controllers
 			_logger = logger;
 		}
 
-
+		/// <summary>
+		/// Create an empty database
+		/// </summary>
+		/// <returns></returns>
 		[HttpPut("create")]
 		public async Task<IActionResult> CreateDatabase()
 		{
@@ -34,6 +37,10 @@ namespace TestSystem.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Delete the database
+		/// </summary>
+		/// <returns></returns>
 		[HttpDelete()]
 		public async Task<IActionResult> DeleteDatabase()
 		{
@@ -49,6 +56,10 @@ namespace TestSystem.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Insert random data into existing database
+		/// </summary>
+		/// <returns></returns>
 		[HttpPost("populate")]
 		public async Task<IActionResult> PopulateDatabase()
 		{

@@ -5,10 +5,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>b83c38db-99a7-4e0e-a695-34e96069a95a</UserSecretsId>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>SwaggerAnnotation.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
@@ -17,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TestSystem.BusinessLogic\TestSystem.BusinessLogic.csproj" />
     <ProjectReference Include="..\TestSystem.Database.Cosmos\TestSystem.Database.Cosmos.csproj" />
+    <ProjectReference Include="..\TestSystem.Database.SqlServer\TestSystem.Database.SqlServer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

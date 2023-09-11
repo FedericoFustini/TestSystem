@@ -37,56 +37,53 @@ namespace TestSystem.BusinessLogic
 
 			var random = new Random(DateTime.Now.Second);
 			var testsNumber = random.Next(3, 10);
-			var tests = new List<Test>();
-			foreach (var testId in Enumerable.Range(1, testsNumber))
-				tests.Add(GenerateTest(testId, random));
+			var tests = new List<TestToGenerate>();
+			foreach (var i in Enumerable.Range(1, testsNumber))
+				tests.Add(GenerateTest(random));
 
 			_logger.LogInformation("Start inserting {testsCount} tests.", tests.Count);
 			await _databaseStructureRepository.PopulateDatabase(tests);
 		}
 
-		private Test GenerateTest(int testId, Random random)
+		private TestToGenerate GenerateTest(Random random)
 		{
 			// 100 is an example for populate the db. the number of question can be unbounded and can easily added into db with the used structure
 			var questionsNumber = random.Next(10, 100);
-			var questions = new List<QuestionWithSolution>();
+			var questions = new List<QuestionToGenerate>();
 
-			foreach (var questionId in Enumerable.Range(1, questionsNumber))
-				questions.Add(GenerateQuestion(questionId, random));
+			foreach (var i in Enumerable.Range(1, questionsNumber))
+				questions.Add(GenerateQuestion(random));
 
 			var testQuestionCount = random.Next(3, Math.Min(questionsNumber, 10)); //number of question for a single test
 
-			_logger.LogInformation("Generated test with {questionCount} question and {possibleQuestionsCount} possible questions.", testQuestionCount, questions.Count);
-			return new Test()
+			_logger.LogInformation("Generated test with {questionCount} question and {possibleQuestionsCount} possible answers.", testQuestionCount, questions.Count);
+			return new TestToGenerate()
 			{
-				Id = testId,
-				Name = $"Test {testId}",
+				Name = $"Test {WordGenerator.CreateRandomWordNumberCombination()}",
 				QuestionCount = testQuestionCount,
 				PossibleQuestions = questions,
 			};
 		}
 
-		private QuestionWithSolution GenerateQuestion(int questionId, Random random)
+		private QuestionToGenerate GenerateQuestion(Random random)
 		{
 
 			var answersNumber = random.Next(2, 10); //10 possible answer is only for example purpose. it can be any number.
-			var answers = new List<Answer>();
+			var answers = new List<AnswerToGenerate>();
 
-			foreach (var answerId in Enumerable.Range(1, answersNumber))
-				answers.Add(new Answer()
+			foreach (var i in Enumerable.Range(1, answersNumber))
+				answers.Add(new AnswerToGenerate()
 				{
-					AnswerId = answerId,
 					IsCorrect = false,
-					Text = $"Answer number {answerId}"
+					Text = $"Answer {WordGenerator.CreateRandomWordNumberCombination()}"
 				});
 
 			var correctAnswerId = random.Next(0, answersNumber - 1);
 			answers[correctAnswerId].IsCorrect = true;
 
-			return new QuestionWithSolution()
+			return new QuestionToGenerate()
 			{
-				Id = questionId,
-				Text = $"Question number {questionId} ?",
+				Text = $"Question {WordGenerator.CreateRandomWordNumberCombination()} ?",
 				Answers = answers
 			};
 		}

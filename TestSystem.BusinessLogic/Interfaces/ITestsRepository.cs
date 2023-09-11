@@ -14,7 +14,6 @@ namespace TestSystem.BusinessLogic.Interfaces
 		Task<IEnumerable<QuestionWithSolution>> ReadTestQuestions(int testId, IEnumerable<int> idsToRetrieve);
 		Task<IEnumerable<TestName>> ReadTestsNames();
 		Task<int> ReadQuestionsCount(int testId);
-		Task<bool> Exist(int testId);
-		Task InsertAnswer(UpdateTest updateTest);
+		Task InsertUserAnswer(UpdateTest updateTest);
 	}
 }

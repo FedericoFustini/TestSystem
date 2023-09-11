@@ -35,8 +35,7 @@ namespace TestSystem.BusinessLogic
 
 			_logger.LogInformation("Creating user {username} for test {testId}", username, testId);
 
-			var userId = Guid.NewGuid();
-			await _usersRepository.CreateUser(userId, username, testId);
+			var userId = await _usersRepository.CreateUser(username, testId);
 
 			var questionsIds = await _testsRepository.ReadQuestionsIds(testId);
 			var idsToRetrieve = questionsIds.QuestionsIds
@@ -64,7 +63,7 @@ namespace TestSystem.BusinessLogic
 
 		public async Task UpdateTest(UpdateTest updateTest)
 		{
-			if (!await _testsRepository.Exist(updateTest.TestId))
+			if (!await _testsRepository.ExistTest(updateTest.TestId))
 				throw new TestNotFoundException($"Test with {updateTest.TestId} not found.");
 			if (!await _usersRepository.Exist(updateTest.UserId, updateTest.TestId))
 				throw new UserNotFoundException($"User with {updateTest.UserId} not found.");
@@ -72,7 +71,7 @@ namespace TestSystem.BusinessLogic
 				throw new AnswerConflictException($"User with {updateTest.UserId} has answer to question {updateTest.QuestionId} of test {updateTest.TestId} yet.");
 			if (await _usersRepository.IsTestCompleted(updateTest.UserId, updateTest.TestId))
 				throw new AnswerConflictException($"User with {updateTest.UserId} has completed test {updateTest.TestId} yet.");
-			await _testsRepository.InsertAnswer(updateTest);
+			await _testsRepository.InsertUserAnswer(updateTest);
 		}
 	}
 }

@@ -8,9 +8,9 @@ namespace TestSystem.Database.Cosmos.Models.testsContainer
 		{
 		}
 
-		public AnswerDB(Answer answer)
+		public AnswerDB(AnswerToGenerate answer, int answerId)
 		{
-			AnswerId = answer.AnswerId;
+			AnswerId = answerId;
 			Text = answer.Text;
 			IsCorrect = answer.IsCorrect;
 		}

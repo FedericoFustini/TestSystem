@@ -8,7 +8,7 @@ namespace TestSystem.BusinessLogic.Interfaces
 {
 	public interface IUsersRepository
 	{
-		Task CreateUser(Guid userId, string username, int testId);
+		Task<Guid> CreateUser(string username, int testId);
 		Task<bool> Exist(Guid userId, int testId);
 		Task<bool> ExistAnswer(Guid userId, int testId, int questionId);
 		Task<bool> IsTestCompleted(Guid userId, int testId);

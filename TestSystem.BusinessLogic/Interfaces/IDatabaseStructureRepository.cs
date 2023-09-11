@@ -12,6 +12,6 @@ namespace TestSystem.BusinessLogic.Interfaces
 		Task CreateDatabase();
 		Task DeleteDatabase();
 		Task<bool> IsEmpty();
-		Task PopulateDatabase(IEnumerable<Test> tests);
+		Task PopulateDatabase(IEnumerable<TestToGenerate> tests);
 	}
 }
