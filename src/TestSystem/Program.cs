@@ -1,8 +1,4 @@
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using Microsoft.Azure.Cosmos;
 using Serilog;
-using System;
-using System.Configuration;
 using TestSystem.ExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,16 +18,25 @@ builder.Services.AddSwaggerGen(c =>
 
 //add DI for TestSystem classes
 builder.Services.AddProjectServices(builder.Configuration);
+builder.Services.AddHealthChecks();
 
 
 var app = builder.Build();
 app.UseSerilogRequestLogging();
+app.MapHealthChecks("/healthz");
 
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
+
+app.MapGet("/", (HttpContext context ) => {
+	if (app.Environment.IsDevelopment())
+		context.Response.Redirect("/swagger/index.html");
+	else
+		context.Response.StatusCode = StatusCodes.Status404NotFound;
+});
 
 app.UseStaticFiles();
 app.UseAuthorization();
