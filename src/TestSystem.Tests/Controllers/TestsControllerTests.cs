@@ -1,18 +1,18 @@
-﻿using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.Extensions.Logging;
-using Moq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestSystem.BusinessLogic.Interfaces;
-using TestSystem.Controllers;
-using TestSystem.BusinessLogic.Exceptions;
-using TestSystem.BusinessLogic.Models;
-using TestSystem.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Moq;
+using TestSystem.BusinessLogic.Exceptions;
+using TestSystem.BusinessLogic.Interfaces;
+using TestSystem.BusinessLogic.Models;
+using TestSystem.Controllers;
+using TestSystem.Models;
 
 namespace TestSystem.Tests.Controllers
 {
@@ -98,7 +98,7 @@ namespace TestSystem.Tests.Controllers
 
 			Assert.That(res.StatusCode, Is.EqualTo(StatusCodes.Status404NotFound));
 		}
-		
+
 
 		[Test]
 		public async Task UpdateTest_TestNotFound_404()

@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using TestSystem.BusinessLogic.Exceptions;
 using TestSystem.BusinessLogic.Interfaces;
 using TestSystem.BusinessLogic.Models;
@@ -52,7 +52,7 @@ namespace TestSystem.BusinessLogic
 				{
 					Id = x.Id,
 					Text = x.Text,
-					Answers = x.Answers.Select( y => new AnswerBase
+					Answers = x.Answers.Select(y => new AnswerBase
 					{
 						Text = y.Text,
 						AnswerId = y.AnswerId,

@@ -1,11 +1,11 @@
-﻿using Microsoft.Azure.Cosmos;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Azure.Cosmos;
 using TestSystem.BusinessLogic.Interfaces;
 using TestSystem.BusinessLogic.Models;
 using TestSystem.Database.Cosmos.Models.testsContainer;
@@ -95,7 +95,7 @@ AND t.QuestionId IN" + $" ({String.Join(", ", idsToRetrieve)}) " +
 			var query = new QueryDefinition(@"SELECT DISTINCT VALUE {Id: t.TestId, Name: t.Name}
 FROM tests t
 WHERE t.QuestionId = 0
-AND t.Type = 'test'"); 
+AND t.Type = 'test'");
 			using var results = container.GetItemQueryIterator<TestName>(query);
 
 			var res = new List<TestName>();

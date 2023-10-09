@@ -1,15 +1,15 @@
-﻿using System.Runtime.CompilerServices;
-using TestSystem.BusinessLogic.Interfaces;
-using TestSystem.BusinessLogic;
-using TestSystem.Database.Cosmos.Repositories;
+﻿using System;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.Azure.Cosmos;
-using System;
-using System.Diagnostics;
-using TestSystem.Database.SqlServer.Repositories;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using TestSystem.BusinessLogic;
+using TestSystem.BusinessLogic.Interfaces;
+using TestSystem.Database.Cosmos.Repositories;
 using TestSystem.Database.SqlServer;
+using TestSystem.Database.SqlServer.Repositories;
 
 namespace TestSystem.ExtensionMethods
 {
@@ -19,7 +19,7 @@ namespace TestSystem.ExtensionMethods
 		{
 			services.AddBusinessLogicServices()
 				.AddSQLServerServices(configuration);//comment this line and use next line for cosmos db
-				//.AddCosmosDBServices(configuration);
+													 //.AddCosmosDBServices(configuration);
 
 			return services;
 		}
@@ -38,7 +38,7 @@ namespace TestSystem.ExtensionMethods
 			services.AddScoped<IDatabaseStructureRepository, Database.Cosmos.Repositories.DatabaseStructureRepository>();
 			services.AddScoped<ITestsRepository, Database.Cosmos.Repositories.TestsRepository>();
 			services.AddScoped<IUsersRepository, Database.Cosmos.Repositories.UsersRepository>();
-			
+
 			services.AddScoped<CosmosClient>((serviceProvider) =>
 			{
 				var uri = configuration["uri"];

@@ -13,7 +13,7 @@ namespace TestSystem.Database.Cosmos.Models.testsContainer
 		{
 		}
 
-		public TestDB(TestToGenerate test,int testId)
+		public TestDB(TestToGenerate test, int testId)
 		{
 			id = Guid.NewGuid();
 			TestId = testId;

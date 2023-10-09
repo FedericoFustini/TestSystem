@@ -1,4 +1,4 @@
-using Serilog;
+﻿using Serilog;
 using TestSystem.Database.SqlServer;
 using TestSystem.ExtensionMethods;
 
@@ -20,7 +20,7 @@ builder.Services.AddSwaggerGen(c =>
 //add DI for TestSystem classes
 builder.Services.AddProjectServices(builder.Configuration);
 builder.Services.AddHealthChecks()
-	.AddDbContextCheck<TestSystemContext>();;
+	.AddDbContextCheck<TestSystemContext>();
 
 
 var app = builder.Build();
@@ -33,7 +33,8 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.MapGet("/", (HttpContext context ) => {
+app.MapGet("/", (HttpContext context) =>
+{
 	if (app.Environment.IsDevelopment())
 		context.Response.Redirect("/swagger/index.html");
 	else
