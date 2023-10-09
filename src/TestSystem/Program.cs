@@ -1,4 +1,5 @@
 using Serilog;
+using TestSystem.Database.SqlServer;
 using TestSystem.ExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,8 @@ builder.Services.AddSwaggerGen(c =>
 
 //add DI for TestSystem classes
 builder.Services.AddProjectServices(builder.Configuration);
-builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks()
+	.AddDbContextCheck<TestSystemContext>();;
 
 
 var app = builder.Build();

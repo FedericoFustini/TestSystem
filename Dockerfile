@@ -14,8 +14,12 @@ RUN dotnet test ./TestSystem.BusinessLogic.Tests/ --no-restore
 RUN dotnet publish ./TestSystem/TestSystem.csproj --no-self-contained -c Release -o /publish 
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 as runtime
+RUN apt-get update 
+RUN apt-get --yes install curl
 WORKDIR /app
 COPY --from=build-env /publish .
 EXPOSE 80
 ENV ASPNETCORE_ENVIRONMENT=Development
+HEALTHCHECK  --interval=30s --timeout=30s --start-period=10s --retries=3 \
+  CMD curl --silent --fail http://localhost:80/healthz || exit 1
 ENTRYPOINT ["dotnet", "exec", "TestSystem.dll"]
