@@ -20,6 +20,9 @@ services:
       context: .
       dockerfile: Dockerfile
       target: runtime
+      args:
+        - build_container=mcr.microsoft.com/dotnet/sdk:7.0
+        - runtime_container=mcr.microsoft.com/dotnet/aspnet:7.0
     ports:
       - 5000:80
     depends_on:

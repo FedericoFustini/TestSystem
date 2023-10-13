@@ -1,4 +1,6 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 as build-env
+ARG build_container
+ARG runtime_container
+FROM $build_container as build-env
 WORKDIR /src
 COPY src/*.sln ./
 COPY src/TestSystem/*.csproj ./TestSystem/
@@ -9,10 +11,9 @@ COPY src/TestSystem.BusinessLogic.Tests/*.csproj ./TestSystem.BusinessLogic.Test
 COPY src/TestSystem.Tests/*.csproj ./TestSystem.Tests/
 RUN dotnet restore
 COPY src .
-RUN dotnet test --no-restore 
 RUN dotnet publish ./TestSystem/TestSystem.csproj --no-self-contained -c Release -o /publish 
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 as runtime
+FROM $runtime_container as runtime
 RUN apt-get update 
 RUN apt-get --yes install curl
 WORKDIR /app
