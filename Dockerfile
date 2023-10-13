@@ -9,8 +9,7 @@ COPY src/TestSystem.BusinessLogic.Tests/*.csproj ./TestSystem.BusinessLogic.Test
 COPY src/TestSystem.Tests/*.csproj ./TestSystem.Tests/
 RUN dotnet restore
 COPY src .
-RUN dotnet test ./TestSystem.Tests/ --no-restore 
-RUN dotnet test ./TestSystem.BusinessLogic.Tests/ --no-restore 
+RUN dotnet test --no-restore 
 RUN dotnet publish ./TestSystem/TestSystem.csproj --no-self-contained -c Release -o /publish 
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 as runtime

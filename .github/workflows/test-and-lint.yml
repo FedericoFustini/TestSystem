@@ -1,0 +1,39 @@
+name: 'test and lint'
+
+on:
+  workflow_call: 
+    inputs:
+      container:
+        type: string
+        required: true
+        description: 'Image where workflow will run'
+      solution-file:
+        type: string
+        description: '.sln file path'
+        required: true
+    
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ inputs.container }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: dotnet test
+        run: dotnet test ${{ inputs.solution-file }}
+
+  lint:
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ inputs.container }}
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: dotnet lint
+        run: dotnet format ${{ inputs.solution-file }} --verify-no-changes
+    
