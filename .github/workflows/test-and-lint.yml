@@ -28,13 +28,14 @@ jobs:
         name: ReportGenerator
         uses: danielpalme/ReportGenerator-GitHub-Action@5.1.26
         with:
-          reports: cobertura.xml
+          reports: coverage/*/coverage.cobertura.xml
           targetdir: coveragereport
           reporttypes: MarkdownSummaryGithub;Badges
           assemblyfilters: -*.Database.*;-*.Tests
           tag: '${{ github.run_number }}_${{ github.run_id }}'
       -
         name: Write to Job Summary
+        if: ${{ always() }}
         run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
 
   lint:
