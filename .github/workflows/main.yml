@@ -11,6 +11,8 @@ on:
   pull_request: 
     branches:
       - "main"
+  schedule:
+    - cron: 0 12 1 * *
   workflow_dispatch: 
     
 jobs:
@@ -18,7 +20,7 @@ jobs:
     uses: ./.github/workflows/test-and-lint.yml
     with:
       solution-file: ./src/TestSystem.sln
-      container: ${{ vars.BUILD_CONTAINER}}
+      container: ${{ vars.BUILD_CONTAINER }}
 
   build:
     runs-on: ubuntu-latest
@@ -45,5 +47,5 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/test-system:latest
           build-args: |
-            build_container=${{ env.BUILD_CONTAINER}}
-            runtime_container=${{ env.RUNTIME_CONTAINER}}
+            build_container=${{ env.BUILD_CONTAINER }}
+            runtime_container=${{ env.RUNTIME_CONTAINER }}
