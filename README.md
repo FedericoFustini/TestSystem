@@ -1,5 +1,15 @@
 # TestSystem
 
+<div align="center">
+
+![.NET 7.0](https://img.shields.io/badge/Version-.NET%207.0-informational?style=flat&logo=dotnet)
+&nbsp;
+![Built With Docker](https://img.shields.io/badge/Built_With-Docker-informational?style=flat&logo=docker)
+&nbsp;
+[![CI Build](https://github.com/FedericoFustini/TestSystem/actions/workflows/main.yml/badge.svg)](https://github.com/FedericoFustini/TestSystem/actions/workflows/main.yml)
+
+</div>
+
 
 ### Quiz system example with Cosmos DB
 This is my first project with a NoSQL database and is built with Visual Studio
